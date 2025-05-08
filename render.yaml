@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: ayaseavan-resort
+    env: php
+    buildCommand: |
+      docker-php-ext-install mysqli
+      composer install
+    startCommand: php -S 0.0.0.0:$PORT
+    envVars:
+      - key: PHP_INI_SCAN_DIR
+        value: /var/www/html
