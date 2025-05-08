@@ -15,6 +15,8 @@ RUN docker-php-ext-install -j$(nproc) \
     pdo \
     pdo_pgsql \
     pgsql \
+    mysqli \
+    pdo_mysql \
     gd \
     zip
 
