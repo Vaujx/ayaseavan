@@ -1,4 +1,5 @@
 <?php
+require_once 'update_to_postgres.php';
 require_once 'config.php';
 
 // Check if site is in maintenance mode
