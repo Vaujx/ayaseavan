@@ -11,7 +11,11 @@ if ($maintenanceMode && !isAdmin()) {
 
 // Get featured rooms
 $roomsQuery = "SELECT * FROM rooms LIMIT 3";
-$roomsResult = mysqli_query($conn, $roomsQuery);
+try {
+    $roomsResult = $conn->query($roomsQuery);
+} catch (PDOException $e) {
+    die("Database error: " . $e->getMessage());
+}
 ?>
 
 <!DOCTYPE html>
@@ -80,7 +84,7 @@ $roomsResult = mysqli_query($conn, $roomsQuery);
         <section class="rooms-section">
             <h2>Our Best Rooms</h2>
             <div class="room-container">
-                <?php while ($room = mysqli_fetch_assoc($roomsResult)): ?>
+                <?php while ($room = $roomsResult->fetch()): ?>
                     <div class="room-card">
                         <img src="assets/images/<?php echo htmlspecialchars($room['image']); ?>" alt="<?php echo htmlspecialchars($room['room_type']); ?>">
                         <h3><?php echo htmlspecialchars($room['room_type']); ?></h3>
@@ -99,7 +103,6 @@ $roomsResult = mysqli_query($conn, $roomsQuery);
                 <a href="rooms.php" class="btn primary">View All Rooms</a>
             </div>
         </section>
-
         <!-- Activities Section -->
         <section class="activities-section">
             <h2>Fun Activities</h2>
